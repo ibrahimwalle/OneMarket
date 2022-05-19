@@ -1,0 +1,20 @@
+<div class="container d-flex justify-content-center my-5 ">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="text-center">
+        <h1 class="mb-5">Log In Please</h1>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="w-100 mb-4 btn btn-lg btn-primary" type="submit">Login</button>
+        <a href="/signup" class="link-secondary">Sign Up!</a>
+    </form>
+</div>

@@ -1,0 +1,31 @@
+<nav class="navbar-expand-sm navbar-light bg-light p-3">
+    <div class="container-fluid d-flex align-items-center" style="flex-wrap: wrap;">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand nav-link" href="/home">ONE MARKET</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav d-flex align-items-center">
+                <ng-container *ngIf="isloggedin; else templateB">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white btn btn-dark py-1 px-3" href="/profile">Profile</a>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+</nav>
+<ng-template #templateB>
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="#">Help</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-white btn btn-dark py-1 px-3" href="/signup">Sign Up</a>
+    </li>
+</ng-template>

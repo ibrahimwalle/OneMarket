@@ -1,0 +1,22 @@
+<div class="container d-flex flex-column">
+    <form class="input-group my-3 d-flex justify-content-center" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <input class="form-control" id="" type="text" formControlName="search">
+        <button class="btn btn-secondary" type="submit">Search</button>
+    </form>
+    <div class="input-group my-3 d-flex justify-content-center">
+        <button class="btn btn-outline-secondary" style="flex: 1;" (click)="onChangePage('-')">Previous Page</button>
+        <button class="btn btn-outline-secondary" style="flex: 1;" (click)="onChangePage('+')">Next Page</button>
+    </div>
+    <div class="row justify-content-around">
+        <div *ngFor="let item of results" class="card m-3" style="width: 13rem">
+            <img class="card-img-top" src={{item.imgUrl}} alt={{item.title}} style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">{{item.title | titlecase}}</h4>
+                <p class="card-text">${{ item.price.value }}</p>
+                <a target="_blank" href={{item.url}} class="btn btn-success">Purchase</a>
+            </div>
+        </div>
+    </div>
+    <!-- <button class="btn btn-warning" (click)="search()">Search</button> -->
+</div>
+

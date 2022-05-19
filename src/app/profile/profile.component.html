@@ -1,0 +1,74 @@
+<div class="container row">
+    <div class="section my-3 text-center">
+        <h1 style="font-weight:bold">Welcome {{ displayName }}</h1>
+        <div class="card userContainer" style="width: 18rem">
+            <img class="item-img" src='../../assets/images/blank.png' alt='Profile img'>
+            <div class="middle">
+                <button class="text btn btn-secondary">Edit</button>
+            </div>
+        </div>
+    </div>
+    <div class="section mb-3">
+        <h1>Saved Items</h1>
+        <div class="row justify-content-evenly">
+            <div *ngFor="let item of savedItems" class="card m-1" style="width: 13rem">
+                <img class="card-img-top item-img" src={{item.galleryURL}} alt={{item.title}}>
+                <div class="card-body">
+                    <h4 class="card-title">{{item.title | titlecase}}</h4>
+                    <p class="card-text">{{ item.price | currency:'USD'}}</p>
+                    <a target="_blank" href={{item.itemUrl}} class="btn btn-success">Purchase</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section mb-3">
+        <h1>Link Accounts</h1>
+        <div class="row justify-content-evenly">
+            <div class="card m-1" style="width: 16rem">
+                <img class="card-img-top" src='../../assets/images/ebay_logo.png' alt='Ebay Logo' style="object-fit: scale-down">
+                <div class="card-body">
+                    <h4 class="card-title">Sign in and Link your Ebay Account!</h4>
+                    <!-- <p class="card-text"></p> -->
+                    <a target="_blank" href='' class="btn btn-dark">Link Account</a>
+                </div>
+            </div>
+            <div class="card m-1" style="width: 16rem">
+                <div class="card-body align-items-center justify-content-evenly">
+                    <h2 class="card-title">More coming soon!</h2>
+                    <a target="_blank" href='' class="btn btn-dark">Learn More!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section mb-3">
+        <h1 id="acc&secu">Account Details and Security</h1>
+        <form>
+            <!-- [formGroup]="" (ngSubmit)="" -->
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-auto">
+                  <button type="" class="btn btn-secondary mb-3">Reset Password</button>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputEmailVerification" class="col-sm-2 col-form-label">Verify Email</label>
+                <div class="col-auto">
+                  <button type="" class="btn btn-secondary mb-3">Send Email</button>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="formFile" class="col-sm-2 col-form-label">Upload Profile Picture</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+            </div>
+        </form>
+    </div>
+    <button class="btn btn-danger" (click)="authService.signout()">Sign Out</button>
+</div>

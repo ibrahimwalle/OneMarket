@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from 'src/environments/environment';
 
-let appid:string = "IbrahimA-Shopping-PRD-629325b3d-dfdc3cca";
+// let appid:string = environment.ebayKey;
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class EbayService {
     let url = this.url;
     url += "?OPERATION-NAME=findItemsByKeywords";
     url += "&SERVICE-VERSION=1.0.0";
-    url += `&SECURITY-APPNAME=${appid}`;
+    url += `&SECURITY-APPNAME=${environment.ebayKey}`;
     url += "&GLOBAL-ID=EBAY-US";
     url += "&RESPONSE-DATA-FORMAT=JSON";
     url += "&REST-PAYLOAD";

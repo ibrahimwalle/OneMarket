@@ -16,13 +16,13 @@ export class SearchService {
   listings : Listing[] =[];
 
   constructor(
-    private http: HttpClient,
     private amazonApi: AmazonService,
     private aliApi: AliexpressService,
     private ebayApi: EbayService) {}
 
 
   async getListings() : Promise<Listing[]>{
+    this.listings = [];
     let ebayListings :any[], amazonListings :any[], aliListings :any[];
      await lastValueFrom(this.ebayApi.getListings(this.query, this.page)).then(
       (results) => {

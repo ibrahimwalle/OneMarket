@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import firebase from 'firebase/compat/app';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -10,6 +11,7 @@ export class AuthService {
   private logged = new BehaviorSubject(false)
   currentlyLogged = this.logged.asObservable();
   userData: any;
+  verified: boolean = false;
 
   constructor(
     public auth: AngularFireAuth, 
@@ -47,6 +49,7 @@ export class AuthService {
         const user = userCredential.user;
         console.log(userCredential.user);
         this.isLoggedIn;
+        this.verificationEmail;
         window.location.reload();
       })
       .catch((error) => {
@@ -82,6 +85,39 @@ export class AuthService {
     //return user !== null && user.emailVerified !== false ? true : false;
   }
 
+  verifyUser(email: string, password: string){
+    var credential = firebase.auth.EmailAuthProvider.credential(email,password);
+    this.auth.currentUser.then(user => {
+      user? user.reauthenticateWithCredential(credential).then(
+        (userCredential) => {
+          const user = userCredential.user;
+          this.verified = true;
+          setTimeout(() => {
+            this.verified = false;
+          }, 100000 );//300000
+        }
+      ).catch(error => alert(error.message)) : console.log('user not found');
+    });
+  }
+
+  async verificationEmail(){
+    let user = await this.auth.currentUser;
+    if(user != null){
+      user.sendEmailVerification().then(
+        () => alert("Email sent.. please confirm!"),
+        (error) => alert(error.message))
+    }
+  }
+  
+  async updateProfileDetails(email?: any ,password?: any, phoneNumber?: any, displayName?: any, photoURL?: any){
+    let user = await this.auth.currentUser;
+    if(user != null){
+      user.updateEmail(email).catch(err=>alert(err.message)),
+      user.updatePassword(password).catch(err=>alert(err.message)),
+      user.updatePhoneNumber(phoneNumber).catch(err=>alert(err.message)),
+      user.updateProfile({displayName,photoURL}).catch(err=>alert(err.message))
+    }
+  }
 }
   // setUserData(user: any) {
   //   const userRef: AngularFirestoreDocument<any> = this.fireStore.doc(
@@ -97,14 +133,4 @@ export class AuthService {
   //   return userRef.set(userData, {
   //     merge: true,
   //   });
-  // }
-
-  // presistance(){
-  //   this.auth.setPersistence('local')
-  //     .then(() => console.log('Logged in to local session'))
-  //     .catch((error) => {
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       alert(errorMessage);
-  //     })
   // }

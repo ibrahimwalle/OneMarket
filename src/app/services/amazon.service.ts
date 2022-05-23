@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,7 @@ export class AmazonService {
 
   getProducts(query : string, page = 1): Observable<any>{ 
     return this.http.get<any>(this.url,{
-      headers: {
-        'X-RapidAPI-Host': 'amazon24.p.rapidapi.com',
-        'X-RapidAPI-Key': '10b7c99da9msh2986224a5664299p1c3824jsn55e312146d3d'
-      },
+      headers: environment.amazonConfig,
       params: {
         'categoryID': '', 
         'keyword': query, 

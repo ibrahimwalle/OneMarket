@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
-import { Listing } from '../interfaces/listing';
+// import { Listing } from '../interfaces/listing';
 import { AuthService } from '../services/auth.service';
 import { FstoreService } from '../services/fstore.service';
 

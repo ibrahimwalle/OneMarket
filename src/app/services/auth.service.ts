@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { User } from '../interfaces/user';
+import { BehaviorSubject } from 'rxjs';
 import { FstoreService } from './fstore.service';
 
 @Injectable({
@@ -72,6 +71,16 @@ export class AuthService {
       })
       .catch((error) => {
         alert(error.message);
+      });
+  }
+
+  resetPassword(email:string){
+    this.auth.sendPasswordResetEmail(email)
+      .then(() => {
+        alert('Password reset email sent!');
+      })
+      .catch((error) => {
+        alert(error.message)
       });
   }
 

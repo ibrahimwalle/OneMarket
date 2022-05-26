@@ -9,12 +9,10 @@
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
             <label for="floatingPassword">Password</label>
         </div>
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
         <button class="w-100 mb-4 btn btn-lg btn-primary" type="submit">Login</button>
+        <div class="mb-3">
+            <button (click)="resetPass()" class="btn btn-sm btn-secondary">Reset Password</button>
+        </div>
         <a href="/signup" class="link-secondary">Sign Up!</a>
     </form>
 </div>

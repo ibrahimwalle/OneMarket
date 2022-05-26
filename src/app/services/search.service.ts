@@ -29,12 +29,12 @@ export class SearchService {
         ebayListings = results.findItemsByKeywordsResponse[0].searchResult[0].item;
         ebayListings.forEach( element => {
           let item : Listing = {id: '', title: '', url:'', imgUrl:'', price: {value: '', currency: ''}, category: [], marketPlace: 'ebay'};
-          item.id = element.itemId,
+          item.id = element.itemId[0],
           item.title = element.title[0],
           item.url = element.viewItemURL[0],
           item.imgUrl = element.galleryURL[0],
-          item.price = element.sellingStatus[0].currentPrice,
-          item.category = element.primaryCategory.categoryName;
+          item.price.value = element.sellingStatus[0].currentPrice[0].__value__,
+          item.category = element.primaryCategory[0].categoryName;
           // console.log(item);
           this.listings.push(item)})},
       (error) => console.log(error),  
@@ -87,43 +87,3 @@ export class SearchService {
   }
 
 }
-
-  // constructUrl() : string {
-  //     let url = this.url;
-  //     url += "?OPERATION-NAME=findItemsByKeywords";
-  //     url += "&SERVICE-VERSION=1.0.0";
-  //     url += `&SECURITY-APPNAME=${appid}`;
-  //     url += "&GLOBAL-ID=EBAY-US";
-  //     url += "&RESPONSE-DATA-FORMAT=JSON";
-  //     url += "&REST-PAYLOAD";
-  //     url += "&paginationInput.entriesPerPage=3";    
-  //   return url;
-  // }
-
-  // getSearchRes(): Observable<response>{
-  //   console.log(this.constructUrl()); 
-  //   return this.http.get<response>(this.constructUrl(),{
-  //     params: {
-  //       'keywords' : this.query, 
-  //       'paginationInput.pageNumber' : this.page}
-  //     }
-  //   )
-  // }
-
-      // this.ebayApi.getListings(this.query, this.page).subscribe({
-    //   next(results) { 
-    //     ebayListings = results.findItemsByKeywordsResponse[0].searchResult[0].item;
-    //     ebayListings.forEach( element => {
-    //       let item : Listing = {id: '', title: '', url:'', imgUrl:'', price: {value: '', currency: ''}, category: [], marketPlace: 'ebay'};
-    //       item.id = element.itemId,
-    //       item.title = element.title[0],
-    //       item.url = element.viewItemURL[0],
-    //       item.imgUrl = element.galleryURL[0],
-    //       item.price = element.sellingStatus[0].currentPrice,
-    //       item.category = element.primaryCategory.categoryName;
-    //       console.log(item);
-    //       listings.push(item);
-    //     })},
-    //   error(err) { console.error('something wrong occurred: ' + err.errorMessage); },
-    //   complete() { console.log('done'); }
-    // });

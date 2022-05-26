@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Listing } from '../interfaces/listing';
 import { from, lastValueFrom } from 'rxjs';
+import { FstoreService } from '../services/fstore.service';
  
 
 @Component({
@@ -15,13 +16,22 @@ export class HomeComponent implements OnInit {
 
   checkoutForm = this.formBuilder.group({search: ''});
   results: Listing[] | undefined;  
+  isLoggedIn: boolean;
 
   constructor(
+    private fstoreService: FstoreService,
     private searchService: SearchService,
     private formBuilder: FormBuilder,
-    public authService: AuthService) { }
+    public authService: AuthService) { 
+      this.isLoggedIn = this.authService.isLoggedIn;
+    }
 
   ngOnInit(): void {}
+
+  
+  saveItem(item: any){
+    this.fstoreService.saveItem(item,this.authService.userData.uid);
+  }
 
   search():void{
     lastValueFrom(from(this.searchService.getListings())).then(

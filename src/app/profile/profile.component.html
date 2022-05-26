@@ -4,7 +4,7 @@
         <div class="card userContainer" style="width: 18rem">
             <img class="item-img" src='../../assets/images/blank.png' alt='Profile img'>
             <div class="middle">
-                <button class="text btn btn-secondary">Edit</button>
+                <button class="text btn btn-secondary" (click)="test()">Edit</button>
             </div>
         </div>
     </div>
@@ -12,11 +12,12 @@
         <h1>Saved Items</h1>
         <div class="row justify-content-evenly">
             <div *ngFor="let item of savedItems" class="card m-1" style="width: 13rem">
-                <img class="card-img-top item-img" src={{item.galleryURL}} alt={{item.title}}>
+                <img class="card-img-top item-img" src={{item.imgUrl}} alt={{item.title}}>
                 <div class="card-body">
                     <h4 class="card-title">{{item.title | titlecase}}</h4>
-                    <p class="card-text">{{ item.price | currency:'USD'}}</p>
-                    <a target="_blank" href={{item.itemUrl}} class="btn btn-success">Purchase</a>
+                    <p class="card-text">{{ item.price.value | currency:'USD'}}</p>
+                    <a target="_blank" href={{item.url}} class="btn btn-success">Purchase</a>
+                    <button (click)="deleteItem(item)" class="btn btn-danger">Delete Item</button>
                 </div>
             </div>
         </div>

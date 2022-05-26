@@ -3,6 +3,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { User } from '../interfaces/user';
+import { FstoreService } from './fstore.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +16,13 @@ export class AuthService {
   verified: boolean = false;
 
   constructor(
+    private fstoreService: FstoreService,
     public auth: AngularFireAuth, 
     private router: Router) {
       this.auth.authState.subscribe((user) => {
         if(user){
           this.userData = user;
+          this.fstoreService.setUserData(user);
           localStorage.setItem('user', JSON.stringify(this.userData));
           JSON.parse(localStorage.getItem('user')!);
         }else{
@@ -118,19 +122,5 @@ export class AuthService {
       user.updateProfile({displayName,photoURL}).catch(err=>alert(err.message))
     }
   }
+
 }
-  // setUserData(user: any) {
-  //   const userRef: AngularFirestoreDocument<any> = this.fireStore.doc(
-  //     `users/${user.uid}`
-  //   );
-  //   const userData: User = {
-  //     uid: user.uid,
-  //     email: user.email,
-  //     displayName: user.displayName,
-  //     photoURL: user.photoURL,
-  //     emailVerified: user.emailVerified,
-  //   };
-  //   return userRef.set(userData, {
-  //     merge: true,
-  //   });
-  // }

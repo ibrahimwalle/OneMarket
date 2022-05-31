@@ -18,6 +18,8 @@ import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { HelpComponent } from './help/help.component';
+import { ListingDetailsComponent } from './listing-details/listing-details.component';
+import { EbayOauthComponent } from './ebay-oauth/ebay-oauth.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { HelpComponent } from './help/help.component';
     ProfileComponent,
     SignupComponent,
     HelpComponent,
+    ListingDetailsComponent,
+    EbayOauthComponent,
   ],
   imports: [
     BrowserModule,

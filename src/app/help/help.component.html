@@ -1,1 +1,33 @@
-<p>help works!</p>
+<div class="container my-5">
+    <section class="text-center mb-5">
+        <h1>How to use!</h1>
+        <ul>
+            <li>Enter Search query in search bar and optionally choose catergory and sorting options!</li>
+            <li>Login in to access more features such as saving items and selling with ebay</li>
+            <li>Please report any issues or Suggestions to us using the form bellow!</li>
+        </ul>
+    </section>
+    <section id="contactUs">
+        <form action="mailto:ibrahimwalle20@gmail.com" class="d-flex flex-column align-items-center" formGroupName="emailForm" (submit)="onSubmit()">
+            <div class="mb-3 row">
+                <label for="name" class="col-sm-auto col-form-label">Name</label>
+                <div class="col-sm-auto">
+                    <input type="text" class="form-control" placeholder="Name" formControlName="name">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="email" class="col-sm-auto col-form-label">Email</label>
+                <div class="col-sm-auto">
+                    <input type="email" class="form-control" placeholder="Email@example.com" formControlName="email">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="comments" class="col-sm-auto col-form-label">Comments <br>and Suggestions</label>
+                <div class="col-sm-auto">
+                    <textarea  class="form-control" placeholder="Please Enter any Suggestions" formControlName="comments"></textarea>
+                </div>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </section>
+</div>

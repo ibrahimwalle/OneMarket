@@ -3,7 +3,9 @@ import { FormBuilder } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
 // import { Listing } from '../interfaces/listing';
 import { AuthService } from '../services/auth.service';
+import { EbayService } from '../services/ebay.service';
 import { FstoreService } from '../services/fstore.service';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-profile',
@@ -30,6 +32,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   savedItems: any[] = [];
 
   constructor(
+    private ebayService: EbayService,
     private fstoreService: FstoreService,
     public authService: AuthService,
     private formBuilder: FormBuilder) { 
@@ -44,9 +47,9 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {  
     this.fetchItems();
   }
-  test(){
-    this.fstoreService.setUserData(this.authService.userData)
-  }
+  // test(item: any){
+  //   this.searchService.setItem(item);
+  // }
 
   fetchItems(){
     lastValueFrom(this.fstoreService.getSavedItems(this.authService.userData.uid)).then((coll) => {
@@ -90,5 +93,12 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       photoURL = this.updateForm.value['photoURL'];
 
     this.authService.updateProfileDetails(email, password, phoneNumber, displayName, photoURL);
+  }
+
+  linkEbay(){
+    // this.ebayService.grantApplicationAccess().subscribe(res =>{
+    //   console.log(res);
+    // });
+    window.open(this.ebayService.grantApplicationAccess(), '_blank')
   }
 }

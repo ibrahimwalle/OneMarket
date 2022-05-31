@@ -27,9 +27,10 @@ export class FstoreService {
       price: item.price,
       category: item.category,
       marketPlace: item.marketPlace
-    }).catch((error) => {
-      console.log("Error Saving item:", error);
-    })
+    }).then(() => alert('Item Saved!'))
+      .catch((error) => {
+        console.log("Error Saving item:", error);
+      })
   }
   // update(user: any): Promise<void> {
   //   return this.ref.doc(user.uid).update(user);

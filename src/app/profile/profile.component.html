@@ -4,7 +4,7 @@
         <div class="card userContainer" style="width: 18rem">
             <img class="item-img" src='../../assets/images/blank.png' alt='Profile img'>
             <div class="middle">
-                <button class="text btn btn-secondary" (click)="test()">Edit</button>
+                <button class="text btn btn-secondary">Edit</button>
             </div>
         </div>
     </div>
@@ -16,8 +16,11 @@
                 <div class="card-body">
                     <h4 class="card-title">{{item.title | titlecase}}</h4>
                     <p class="card-text">{{ item.price.value | currency:'USD'}}</p>
-                    <a target="_blank" href={{item.url}} class="btn btn-success">Purchase</a>
-                    <button (click)="deleteItem(item)" class="btn btn-danger">Delete Item</button>
+                    <div>
+                        <a target="_blank" href={{item.url}} class="btn btn-success">Pruchase</a>
+                        <a target="_blank" [routerLink]="['/listing', item.id]" class="btn btn-success">More details!</a>
+                        <button (click)="deleteItem(item)" class="btn btn-danger">Delete Item</button>    
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,7 +33,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Sign in and Link your Ebay Account!</h4>
                     <!-- <p class="card-text"></p> -->
-                    <a target="_blank" href='' class="btn btn-dark">Link Account</a>
+                    <button (click)="linkEbay()" class="btn btn-dark">Link Account</button>
                 </div>
             </div>
             <div class="card m-1" style="width: 16rem">

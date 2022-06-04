@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { HelpComponent } from './help/help.component';
 import { ListingDetailsComponent } from './listing-details/listing-details.component';
 import { EbayOauthComponent } from './ebay-oauth/ebay-oauth.component';
+import { SellingComponent } from './selling/selling.component';
 
 const routes: Routes = [
   {path: "", pathMatch: "full", redirectTo: "home"},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: "signup", component: SignupComponent},
   {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
   {path: "help", component: HelpComponent},
-  {path: "ebayOauth/:code", component: EbayOauthComponent},
+  {path: "ebayOauth", component: EbayOauthComponent},
+  {path: "sell", component: SellingComponent},
   {path: "listing/:id", component: ListingDetailsComponent}
 ];
 

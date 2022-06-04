@@ -1,0 +1,74 @@
+<div class="container my-5">
+    <section id="ebaySection">
+        <h1 class="text-center">Selling with Ebay!</h1>
+        <div class="steps">
+            <h2>Step 1</h2>
+            <p>To start selling with Ebay, you must first make sure that you have linked your Ebay account!</p>
+            <a *ngIf="" class="btn btn-primary" href="/profile">Link your Ebay account!</a>
+        </div>
+        <div class="steps">
+            <h2>Step 2</h2>
+            <p>Now that you have linked your Ebay account, you need to create an Inventory or choose and existing one!</p>
+            <div *ngIf="true else templateB">
+                <h3>Create or select an existing Inventory</h3>
+                <form>
+                    <div class="mb-2 row">
+                        <label for="name" class="col-sm-2 col-form-label">Inventory Location Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="Address" class="col-sm-2 col-form-label">Address</label>
+                        <div class="mb-2 col-sm-10">
+                            <input type="text" class="form-control" id="addressLine1" placeholder="AddressLine 1" formControlName="addressLine1">
+                        </div>
+                        <div class="mb-2 offset-md-2 col-sm-10">
+                            <input type="text" class="form-control" id="addressLine2" placeholder="AddressLine 2" formControlName="addressLine2">
+                        </div>
+                        <div class="mb-2 offset-md-2 col-sm-10">
+                            <input type="text" class="form-control" id="city" placeholder="City" formControlName="city">
+                        </div>
+                        <div class="mb-2 offset-md-2 col-sm-10">
+                            <select id="country" class="form-select" formControlName="country">
+                                <option selected value="">Please Select your Country Code!</option>
+                                <option *ngFor="let country of countryCodes | keyvalue" value={{country.key}}>{{country.value}}</option>
+                            </select>
+                        </div>  
+                        <div class="mb-2 offset-md-2 col-sm-10">
+                            <input type="text" class="form-control" id="postalCode" placeholder="PostalCode" formControlName="postalCode">
+                        </div>
+                        <div class="mb-2 offset-md-2 col-sm-10">
+                            <input type="text" class="form-control" id="stateOrProvince" placeholder="State Or Province" formControlName="stateOrProvince">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
+                        <div class="mb-2 col-sm-10">
+                            <input type="number" class="form-control" id="phone" placeholder="Phone" formControlName="phone">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="operatingHours" class="col-sm-2 col-form-label">Operating Hours</label>
+                        <div class="mb-2 col-sm-10">
+                            <input type="text" class="form-control" id="dayOfWeekEnum" placeholder="Days Of Week" formControlName="dayOfWeekEnum">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="specialHours" class="col-sm-2 col-form-label">Speacial Hours</label>
+                        <div class="mb-2 col-sm-10">
+                            <input type="text" class="form-control" id="intervals" placeholder="Intervals" formControlName="intervals">
+                        </div>
+                    </div>    
+                </form>
+                <form>
+                    
+                </form>
+            </div>
+            <ng-template #templateB>
+                <h3>Please link your Ebay to continue!</h3>
+            </ng-template>
+        </div>
+    </section>
+
+</div>

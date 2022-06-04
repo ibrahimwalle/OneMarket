@@ -9,20 +9,46 @@ import { EbayService } from '../services/ebay.service';
 })
 export class EbayOauthComponent implements OnInit {
 
+  private authCode!: string;
+  loginSuccess!: boolean;
+
+  setAuthCode(code: string){
+    this.authCode = code;
+  }
   constructor(
     private activatedRoute: ActivatedRoute,
     private ebayApi: EbayService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe(params =>{
-      let code = params.get('code');
-      if(code != null){
-        console.log(code)
-        this.ebayApi.applicationaccesstoken(code).subscribe(res => console.log(res))
-      }else{
-        alert('Login Failed!')  
-      }
+    this.activatedRoute.queryParams.subscribe({
+      next: (params) => {
+      let authparams = params;
+      if(authparams['code'] != null){
+        console.log('Authorization Params Recieved:',authparams);
+        this.setAuthCode(authparams['code']);
+        this.ebayApi.setAuthToken(this.authCode);
+        this.loginSuccess = true;
+        this.exchangeAuthCode()
+      }},
+      error: (err) => {
+        alert(err.message)
+        this.loginSuccess = false},
+      complete: () => console.log('Recieved Authorization Code!')
     })
+  }
+
+  exchangeAuthCode(){
+    this.ebayApi.applicationaccesstoken(this.authCode)
+    // .subscribe({
+    //   next: (res) => {
+    //     console.log(res),
+    //     this.ebayApi.setAccessToken(res)
+    //     this.loginSuccess = true},
+    //   error: (err) => {
+    //     alert(err.message),
+    //     this.loginSuccess = false},
+    //   complete:() => console.log('Done')
+    // })
   }
 
 }

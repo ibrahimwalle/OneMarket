@@ -1,8 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
-// const EbayAuthToken = require('ebay-oauth-nodejs-client');
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +9,20 @@ import { environment } from 'src/environments/environment';
 export class EbayService {
 
   private url :string = "https://svcs.ebay.com/services/search/FindingService/v1";
-  // private ebayAuthToken = new EbayAuthToken({
-  //   clientId: environment.ebayKey,
-  //   clientSecret: '<your_client_secret>',
-  //   redirectUri: '<redirect uri>'
-  // });
+  private accessTokens: any;
+  private authToken: string | undefined;
+  public setAccessTokens(token: object){
+    this.accessTokens = token;
+  }
+  get AccessTokens(): string{
+    return this.accessTokens.access_token;
+  }
+  public setAuthToken(token: string){
+    this.authToken = token;
+  }
+  get AuthToken(): any{
+    return this.authToken;
+  }
 
   constructor(private http: HttpClient) { 
 
@@ -71,24 +79,42 @@ export class EbayService {
     //     scope: environment.ebayConfig.scope
     //   }
     // })
-    // console.log(request);
-    // window.open(consentLink, '_blank');
     return requestUrl;
 
   }
 
-  applicationaccesstoken(client_cred:string){
+  applicationaccesstoken(authCode:string){
     let url = 'https://api.ebay.com/identity/v1/oauth2/token';
-
-    return this.http.post(url, {
-      grant_type: client_cred,
-      scope: environment.ebayConfig.scope
-      }, {
-      headers:{
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Basic ${environment.ebayConfig.clientID}:${environment.ebayConfig.clientSecret}`
-      }
+    console.log(authCode);
+    let response;
+    const myHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      // 'Authorization': `Basic ${environment.ebayConfig.clientID}:${environment.ebayConfig.clientSecret}`,
+      'Authorization': `Basic ${btoa(environment.ebayConfig.clientID)}:${btoa(environment.ebayConfig.clientSecret)}`,
+      // "Access-Control-Allow-Origin": "http://localhost:4200/",
+      // "preflightContinue": 'true',
+      // "Access-Control-Allow-Credentials": "true",
+      // "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+      // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token",
+      // "Access-Control-Max-Age": '86400'
     })
+    // await this.http.options(url,{headers:myHeaders})
+    this.http.post(url, {
+      grant_type: 'authorization_code',
+      redirect_uri: environment.ebayConfig.redirectUri,
+      code: authCode,
+      }, {
+      headers:myHeaders
+    }).subscribe({
+      next: (res) => {
+        console.log(res),
+        response = res;
+        this.setAccessTokens(res);
+      },
+      error: (err) => alert(err.message),
+      complete: () => console.log("done fetching application accesstoken!")
+    })
+    return response;
   }
   
 
@@ -101,4 +127,7 @@ export class EbayService {
   //   const authUrl = this.ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION');
   //   console.log(authUrl);
   // }
+
+  //  createInventoryLocation(https://api.ebay.com/sell/inventory/v1/location/{merchantLocationKey}) getInventoryLocations (and other similar api funtions)
+  // createOrReplaceInventoryItem getInventoryItem getInventoryItems deleteInventoryItem	(maybe this)
 }

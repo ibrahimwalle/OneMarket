@@ -1,1 +1,13 @@
-<p>ebay-oauth works!</p>
+<div *ngIf="loginSuccess else templateB" class="text-center">
+    <img src="../../assets/images/ebay_logo.png" alt="ebay_logo">
+    <h1>Ebay login success!</h1>
+    <a class="link-secondary" href="/home">back to the Home page!</a>
+</div>
+
+<ng-template #templateB>
+    <div class="text-center height-100">
+        <img src="../../assets/images/ebay_logo.png" alt="ebay_logo">
+        <h1>Ebay Login Failed!</h1>
+        <button class="link-secondary btn" (click)="exchangeAuthCode()">Try again!</button>
+    </div>
+</ng-template>

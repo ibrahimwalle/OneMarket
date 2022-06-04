@@ -20,6 +20,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HelpComponent } from './help/help.component';
 import { ListingDetailsComponent } from './listing-details/listing-details.component';
 import { EbayOauthComponent } from './ebay-oauth/ebay-oauth.component';
+import { SellingComponent } from './selling/selling.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { EbayOauthComponent } from './ebay-oauth/ebay-oauth.component';
     HelpComponent,
     ListingDetailsComponent,
     EbayOauthComponent,
+    SellingComponent,
   ],
   imports: [
     BrowserModule,

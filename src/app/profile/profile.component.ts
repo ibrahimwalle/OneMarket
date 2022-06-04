@@ -5,7 +5,6 @@ import { lastValueFrom } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { EbayService } from '../services/ebay.service';
 import { FstoreService } from '../services/fstore.service';
-import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-profile',
@@ -47,9 +46,10 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {  
     this.fetchItems();
   }
-  // test(item: any){
-  //   this.searchService.setItem(item);
-  // }
+
+  test(){
+    console.log(this.ebayService.AuthToken);
+  }
 
   fetchItems(){
     lastValueFrom(this.fstoreService.getSavedItems(this.authService.userData.uid)).then((coll) => {

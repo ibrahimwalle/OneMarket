@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   test(){
-    console.log(this.ebayService.AuthToken);
+    console.log(this.ebayService.getAuthToken);
   }
 
   fetchItems(){

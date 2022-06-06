@@ -14,13 +14,13 @@ export class EbayService {
   public setAccessTokens(token: object){
     this.accessTokens = token;
   }
-  get AccessTokens(): string{
+  get getAccessTokens(): string{
     return this.accessTokens.access_token;
   }
   public setAuthToken(token: string){
     this.authToken = token;
   }
-  get AuthToken(): any{
+  get getAuthToken(): any{
     return this.authToken;
   }
 
@@ -87,6 +87,7 @@ export class EbayService {
     let url = 'https://api.ebay.com/identity/v1/oauth2/token';
     console.log(authCode);
     let response;
+
     const myHeaders = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       // 'Authorization': `Basic ${environment.ebayConfig.clientID}:${environment.ebayConfig.clientSecret}`,
@@ -98,7 +99,7 @@ export class EbayService {
       // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, X-Auth-Token",
       // "Access-Control-Max-Age": '86400'
     })
-    // await this.http.options(url,{headers:myHeaders})
+
     this.http.post(url, {
       grant_type: 'authorization_code',
       redirect_uri: environment.ebayConfig.redirectUri,
@@ -117,6 +118,32 @@ export class EbayService {
     return response;
   }
   
+  createInventoryLocation(merchantLocationKey: string, reqPayload: object){
+    let url = `https://api.ebay.com/sell/inventory/v1/location/${merchantLocationKey}`;
+    const myHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.getAuthToken,
+    })
+
+    this.http.post(url, reqPayload, {
+      headers: myHeaders
+    }).subscribe({
+      next: () => alert('Inventory Created!'),
+      error: (err) => alert(err.code + err.message + "Please make sure your Ebay login is not expired!"),
+      complete: () => console.log('createInventoryLocation DONE')
+    })
+  }
+
+  getInventoryLocations(){
+    let url = 'https://api.ebay.com/sell/inventory/v1/location?';
+    const myHeaders = new HttpHeaders({
+      'Authorization': this.getAuthToken,
+    })
+
+    return this.http.get<any>(url,{
+      headers: myHeaders
+    })
+  }
 
   // async appToken(){
   //   const token = await this.ebayAuthToken.getApplicationToken('PRODUCTION');
@@ -128,6 +155,6 @@ export class EbayService {
   //   console.log(authUrl);
   // }
 
-  //  createInventoryLocation(https://api.ebay.com/sell/inventory/v1/location/{merchantLocationKey}) getInventoryLocations (and other similar api funtions)
+  //   getInventoryLocations (and other similar api funtions)
   // createOrReplaceInventoryItem getInventoryItem getInventoryItems deleteInventoryItem	(maybe this)
 }

@@ -1,17 +1,25 @@
 <div class="container my-5">
     <section id="ebaySection">
-        <h1 class="text-center">Selling with Ebay!</h1>
+        <h1 class="text-center mb-5">Selling with Ebay!</h1>
         <div class="steps">
             <h2>Step 1</h2>
             <p>To start selling with Ebay, you must first make sure that you have linked your Ebay account!</p>
-            <a *ngIf="" class="btn btn-primary" href="/profile">Link your Ebay account!</a>
+            <a *ngIf="!ebaylogin" class="btn btn-primary" href="/profile">Link your Ebay account!</a>
         </div>
         <div class="steps">
             <h2>Step 2</h2>
-            <p>Now that you have linked your Ebay account, you need to create an Inventory or choose and existing one!</p>
-            <div *ngIf="true else templateB">
+            <p>After Linking your Ebay account, you need to create an Inventory or choose and existing one!</p>
+        </div>
+        <div class="steps">
+            <div *ngIf="ebaylogin else templateB">
                 <h3>Create or select an existing Inventory</h3>
-                <form>
+                <form class="mb-4" [formGroup]="inventoryForm" (ngSubmit)="onSubmitInventory()">
+                    <div class="mb-2 row">
+                        <label for="key" class="col-sm-2 col-form-label">Merchant Location Key</label>
+                        <div class="col-sm-10">
+                            <input type="text" maxlength="36" class="form-control" id="key" placeholder="Enter a unique key!" formControlName="key" required>
+                        </div>
+                    </div>
                     <div class="mb-2 row">
                         <label for="name" class="col-sm-2 col-form-label">Inventory Location Name</label>
                         <div class="col-sm-10">
@@ -20,38 +28,63 @@
                     </div>
                     <div class="mb-3 row">
                         <label for="Address" class="col-sm-2 col-form-label">Address</label>
-                        <div class="mb-2 col-sm-10">
-                            <input type="text" class="form-control" id="addressLine1" placeholder="AddressLine 1" formControlName="addressLine1">
+                        <div class="mb-2 col-sm-5">
+                            <input type="text" class="form-control" id="addressLine1" placeholder="AddressLine 1" formControlName="addressLine1" required>
                         </div>
-                        <div class="mb-2 offset-md-2 col-sm-10">
+                        <div class="mb-2 col-sm-5">
                             <input type="text" class="form-control" id="addressLine2" placeholder="AddressLine 2" formControlName="addressLine2">
                         </div>
-                        <div class="mb-2 offset-md-2 col-sm-10">
-                            <input type="text" class="form-control" id="city" placeholder="City" formControlName="city">
+                        <div class="mb-2 offset-md-2 col-sm-5">
+                            <input type="text" class="form-control" id="city" placeholder="City" formControlName="city" required>
                         </div>
-                        <div class="mb-2 offset-md-2 col-sm-10">
-                            <select id="country" class="form-select" formControlName="country">
-                                <option selected value="">Please Select your Country Code!</option>
+                        <div class="mb-2 col-sm-5">
+                            <select id="country" class="form-select" formControlName="country" required>
+                                <option selected value="">Select your Country!</option>
                                 <option *ngFor="let country of countryCodes | keyvalue" value={{country.key}}>{{country.value}}</option>
                             </select>
                         </div>  
-                        <div class="mb-2 offset-md-2 col-sm-10">
+                        <div class="mb-2 offset-md-2 col-sm-5">
                             <input type="text" class="form-control" id="postalCode" placeholder="PostalCode" formControlName="postalCode">
                         </div>
-                        <div class="mb-2 offset-md-2 col-sm-10">
-                            <input type="text" class="form-control" id="stateOrProvince" placeholder="State Or Province" formControlName="stateOrProvince">
+                        <div class="mb-2 col-sm-5">
+                            <input type="text" class="form-control" id="stateOrProvince" placeholder="State Or Province" formControlName="stateOrProvince" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
                         <div class="mb-2 col-sm-10">
-                            <input type="number" class="form-control" id="phone" placeholder="Phone" formControlName="phone">
+                            <input type="tel" class="form-control" id="phone" placeholder="Phone" formControlName="phone">
                         </div>
                     </div>
-                    <div class="mb-3 row">
+                    <button class="btn btn-primary" type="submit">Submit!</button>
+                    <!-- <div class="mb-3 row">
                         <label for="operatingHours" class="col-sm-2 col-form-label">Operating Hours</label>
-                        <div class="mb-2 col-sm-10">
-                            <input type="text" class="form-control" id="dayOfWeekEnum" placeholder="Days Of Week" formControlName="dayOfWeekEnum">
+                        <div class="mb-2 col-sm-10 form-group" formControlName="dayOfWeekEnum"> 
+                            <label for="operatingHours" class="col-sm-11 col-form-label">Operating Days:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="MONDAY" formControlName="dayOfWeekEnum">
+                                <label class="form-check-label" for="dayOfWeekEnum">Monday</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="TUESDAY" formControlName="dayOfWeekEnum">
+                                <label class="form-check-label" for="dayOfWeekEnum">Tuesday</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="WEDNESDAY" formControlName="dayOfWeekEnum">
+                                <label class="form-check-label" for="dayOfWeekEnum">Wednesday</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="THURSDAY" formControlName="dayOfWeekEnum">
+                                <label class="form-check-label" for="dayOfWeekEnum">Thursday</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="FRIDAY" formControlName="dayOfWeekEnum">
+                                <label class="form-check-label" for="dayOfWeekEnum">Friday</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="SATURDAY" formControlName="dayOfWeekEnum">
+                                <label class="form-check-label" for="dayOfWeekEnum">Saturday</label>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -59,14 +92,21 @@
                         <div class="mb-2 col-sm-10">
                             <input type="text" class="form-control" id="intervals" placeholder="Intervals" formControlName="intervals">
                         </div>
-                    </div>    
+                    </div>     -->
                 </form>
                 <form>
-                    
+                    <h3>Select Your Inventory!</h3>
+                    <div class="mb-2 col-sm-5">
+                        <select id="inventory" class="form-select" formControlName="inventory" required>
+                            <option selected value="">Select Inventory!</option>
+                            <option *ngFor="let inventory of inventories | keyvalue" value={{inventory.key}}>{{inventory.value}}</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit!</button>  
                 </form>
             </div>
             <ng-template #templateB>
-                <h3>Please link your Ebay to continue!</h3>
+                <h3>Please link your Ebay account to continue!</h3>
             </ng-template>
         </div>
     </section>

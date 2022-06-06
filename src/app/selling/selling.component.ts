@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { EbayService } from '../services/ebay.service';
 
 @Component({
   selector: 'app-selling',
   templateUrl: './selling.component.html',
   styleUrls: ['./selling.component.sass']
 })
-export class SellingComponent implements OnInit {
+export class SellingComponent implements OnInit, AfterViewInit {
 
   countryCodes = {
     "AF": "Afghanistan",
@@ -257,11 +259,76 @@ export class SellingComponent implements OnInit {
     "ZM": "Zambia",
     "ZW": "Zimbabwe",
     "AX": "Åland Islands"
-};
-  constructor() { }
+  };
+
+  inventoryForm = this.formBuilder.group({
+    key: '',
+    name: '',
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    country: '',
+    postalCode: '',
+    stateOrProvince: '',
+    phone: '',
+    // operatingHours: {
+    //   dayOfWeekEnum: [],
+    //   intervals: {
+    //     close: '',
+    //     open: ''
+    //   }
+    // },
+    // specialHours: {
+    //   intervals: {
+    //     close: '',
+    //     open: ''
+    //   }
+    // }
+  });
+  inventories = []
+  ebaylogin! :boolean
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private ebayService: EbayService,) { }
 
   ngOnInit(): void {
     // console.log(this.countryCodes)
+  }
+
+  ngAfterViewInit(): void {
+    this.ebayService.getInventoryLocations().subscribe({
+      next: (res) => {
+        this.inventories = res.locations,
+        this.ebaylogin = true
+      },
+      error: (err) => {
+        alert(err.code + err.message + "Please make sure your Ebay login is not expired!"),
+        this.ebaylogin = false
+      },
+      complete: () => console.log('getInventoryLocations DONE')
+    })
+  }
+
+  onSubmitInventory(){
+    let key = this.inventoryForm.value['key'];
+    let location = {
+      address: {
+        addressLine1 : this.inventoryForm.value['addressLine1'],
+        addressLine2 : this.inventoryForm.value['addressLine2'],
+        city: this.inventoryForm.value['city'],
+        country: this.inventoryForm.value['country'],
+        postalCode: this.inventoryForm.value['postalCode'],
+        stateOrProvince: this.inventoryForm.value['stateOrProvince'],
+      },
+      name: this.inventoryForm.value['name'],
+      phone: this.inventoryForm.value['phone']
+    }
+    if(location.address.addressLine1 != '' && location.address.city != '' && location.address.country != '' && location.address.stateOrProvince != ''){
+      this.ebayService.createInventoryLocation(key, location);
+    }else{
+      alert('Please make sure you filled the form properly!')
+    }
   }
 
 }

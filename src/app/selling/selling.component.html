@@ -2,108 +2,119 @@
     <section id="ebaySection">
         <h1 class="text-center mb-5">Selling with Ebay!</h1>
         <div class="steps">
-            <h2>Step 1</h2>
-            <p>To start selling with Ebay, you must first make sure that you have linked your Ebay account!</p>
+            <h2>DISCLAIMER:</h2>
+            <p>To start selling with Ebay, you must first make sure that your Ebay account is enrolled in the Seller program!</p>
+            <p>Make sure that your Ebay account is Linked and press <a class="link-secondary" data-bs-toggle="modal" data-bs-target="#myOptInModal">here</a> to opt-in to the Ebay Seller program</p>
             <a *ngIf="!ebaylogin" class="btn btn-primary" href="/profile">Link your Ebay account!</a>
         </div>
         <div class="steps">
-            <h2>Step 2</h2>
+            <h2>Get Started!</h2>
             <p>After Linking your Ebay account, you need to create an Inventory or choose and existing one!</p>
         </div>
         <div class="steps">
             <div *ngIf="ebaylogin else templateB">
-                <h3>Create or select an existing Inventory</h3>
-                <form class="mb-4" [formGroup]="inventoryForm" (ngSubmit)="onSubmitInventory()">
-                    <div class="mb-2 row">
-                        <label for="key" class="col-sm-2 col-form-label">Merchant Location Key</label>
-                        <div class="col-sm-10">
-                            <input type="text" maxlength="36" class="form-control" id="key" placeholder="Enter a unique key!" formControlName="key" required>
-                        </div>
-                    </div>
-                    <div class="mb-2 row">
-                        <label for="name" class="col-sm-2 col-form-label">Inventory Location Name</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="Address" class="col-sm-2 col-form-label">Address</label>
-                        <div class="mb-2 col-sm-5">
-                            <input type="text" class="form-control" id="addressLine1" placeholder="AddressLine 1" formControlName="addressLine1" required>
-                        </div>
-                        <div class="mb-2 col-sm-5">
-                            <input type="text" class="form-control" id="addressLine2" placeholder="AddressLine 2" formControlName="addressLine2">
-                        </div>
-                        <div class="mb-2 offset-md-2 col-sm-5">
-                            <input type="text" class="form-control" id="city" placeholder="City" formControlName="city" required>
-                        </div>
-                        <div class="mb-2 col-sm-5">
-                            <select id="country" class="form-select" formControlName="country" required>
-                                <option selected value="">Select your Country!</option>
-                                <option *ngFor="let country of countryCodes | keyvalue" value={{country.key}}>{{country.value}}</option>
-                            </select>
-                        </div>  
-                        <div class="mb-2 offset-md-2 col-sm-5">
-                            <input type="text" class="form-control" id="postalCode" placeholder="PostalCode" formControlName="postalCode">
-                        </div>
-                        <div class="mb-2 col-sm-5">
-                            <input type="text" class="form-control" id="stateOrProvince" placeholder="State Or Province" formControlName="stateOrProvince" required>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
-                        <div class="mb-2 col-sm-10">
-                            <input type="tel" class="form-control" id="phone" placeholder="Phone" formControlName="phone">
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" type="submit">Submit!</button>
-                    <!-- <div class="mb-3 row">
-                        <label for="operatingHours" class="col-sm-2 col-form-label">Operating Hours</label>
-                        <div class="mb-2 col-sm-10 form-group" formControlName="dayOfWeekEnum"> 
-                            <label for="operatingHours" class="col-sm-11 col-form-label">Operating Days:</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="MONDAY" formControlName="dayOfWeekEnum">
-                                <label class="form-check-label" for="dayOfWeekEnum">Monday</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="TUESDAY" formControlName="dayOfWeekEnum">
-                                <label class="form-check-label" for="dayOfWeekEnum">Tuesday</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="WEDNESDAY" formControlName="dayOfWeekEnum">
-                                <label class="form-check-label" for="dayOfWeekEnum">Wednesday</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="THURSDAY" formControlName="dayOfWeekEnum">
-                                <label class="form-check-label" for="dayOfWeekEnum">Thursday</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="FRIDAY" formControlName="dayOfWeekEnum">
-                                <label class="form-check-label" for="dayOfWeekEnum">Friday</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox" value="SATURDAY" formControlName="dayOfWeekEnum">
-                                <label class="form-check-label" for="dayOfWeekEnum">Saturday</label>
+                <div>
+                    <h2 class="mb-5 text-center">Create or select an existing Inventory</h2>
+                    <form class="mb-4" [formGroup]="inventoryForm" (ngSubmit)="onSubmitInventory()">
+                        <div class="mb-2 row">
+                            <label for="key" class="col-sm-2 col-form-label">Merchant Location Key</label>
+                            <div class="col-sm-10">
+                                <input type="text" maxlength="36" class="form-control" id="key" placeholder="Enter a unique key!" formControlName="key" required>
                             </div>
                         </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="specialHours" class="col-sm-2 col-form-label">Speacial Hours</label>
-                        <div class="mb-2 col-sm-10">
-                            <input type="text" class="form-control" id="intervals" placeholder="Intervals" formControlName="intervals">
+                        <div class="mb-2 row">
+                            <label for="name" class="col-sm-2 col-form-label">Inventory Location Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name">
+                            </div>
                         </div>
-                    </div>     -->
-                </form>
-                <form>
-                    <h3>Select Your Inventory!</h3>
-                    <div class="mb-2 col-sm-5">
-                        <select id="inventory" class="form-select" formControlName="inventory" required>
-                            <option selected value="">Select Inventory!</option>
-                            <option *ngFor="let inventory of inventories | keyvalue" value={{inventory.key}}>{{inventory.value}}</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary" type="submit">Submit!</button>  
-                </form>
+                        <div class="mb-3 row">
+                            <label for="Address" class="col-sm-2 col-form-label">Address</label>
+                            <div class="mb-2 col-sm-5">
+                                <input type="text" class="form-control" id="addressLine1" placeholder="AddressLine 1" formControlName="addressLine1" required>
+                            </div>
+                            <div class="mb-2 col-sm-5">
+                                <input type="text" class="form-control" id="addressLine2" placeholder="AddressLine 2" formControlName="addressLine2">
+                            </div>
+                            <div class="mb-2 offset-sm-2 col-sm-5">
+                                <input type="text" class="form-control" id="city" placeholder="City" formControlName="city" required>
+                            </div>
+                            <div class="mb-2 col-sm-5">
+                                <select id="country" class="form-select" formControlName="country" required>
+                                    <option selected value="">Select your Country!</option>
+                                    <option *ngFor="let country of countryCodes | keyvalue" value={{country.key}}>{{country.value}}</option>
+                                </select>
+                            </div>  
+                            <div class="mb-2 offset-sm-2 col-sm-5">
+                                <input type="text" class="form-control" id="postalCode" placeholder="PostalCode" formControlName="postalCode">
+                            </div>
+                            <div class="mb-2 col-sm-5">
+                                <input type="text" class="form-control" id="stateOrProvince" placeholder="State Or Province" formControlName="stateOrProvince" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
+                            <div class="mb-2 col-sm-10">
+                                <input type="tel" class="form-control" id="phone" placeholder="Phone" formControlName="phone">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Submit!</button>
+                    </form>
+                </div>
+                <div>
+                    <h2 class="mb-5 text-center">Create a Sale Listing</h2>
+                    <form [formGroup]="listingForm" (ngSubmit)="onSubmitListing()">
+                        <div class="mb-3 row">
+                            <label for="title" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" maxlength="80" class="form-control" placeholder="Title" formControlName="title">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="description" class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Description" formControlName="description">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-2 col-form-label">Country</label>
+                            <div class="col-sm-10">
+                                <select class="form-select" formControlName="country" required>
+                                    <option selected value="">Select your Country!</option>
+                                    <option *ngFor="let country of countryCodes | keyvalue" value={{country.key}}>{{country.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <select class="form-select" formControlName="category" required>
+                                    <option selected value="">Select Category!</option>
+                                    <option *ngFor="let category of Categories | keyvalue" value={{category.key}}>{{category.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="price" class="col-sm-2 col-form-label">Price</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" placeholder="Price" formControlName="price">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="formFile" class="col-sm-2 col-form-label">Upload listing Pictures</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="file" id="formFile">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="postalCode" class="col-sm-2 col-form-label">Post Code</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="PostalCode" formControlName="postalCode">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Submit!</button>  
+                    </form>
+                </div>    
             </div>
             <ng-template #templateB>
                 <h3>Please link your Ebay account to continue!</h3>
@@ -112,3 +123,23 @@
     </section>
 
 </div>
+
+
+<div id='myOptInModal' class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title m-0">Opt in to Ebay Seller Program!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p>To be eligible for the Ebay seller program, Ebay requires you to satisfy certain Standards and Policies <br>
+            If you think your account isn't eligible, Please visit <a href="www.ebay.com" target="_blank">Ebay.com</a> to set up your account</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="onSubmitOptin()">Submit Ebay Seller Program Request!</button>
+        </div>
+      </div>
+    </div>
+  </div>

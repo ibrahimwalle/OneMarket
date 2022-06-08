@@ -66,6 +66,7 @@ export class AuthService {
         // Sign-out succesful 
         console.log('Signed out');
         localStorage.removeItem('user');
+        localStorage.removeItem('ebayAuth');
         this.isLoggedIn;
         window.location.reload();
       })

@@ -261,6 +261,8 @@ export class SellingComponent implements OnInit, AfterViewInit {
     "AX": "Åland Islands"
   };
 
+  Categories = []
+
   inventoryForm = this.formBuilder.group({
     key: '',
     name: '',
@@ -271,20 +273,21 @@ export class SellingComponent implements OnInit, AfterViewInit {
     postalCode: '',
     stateOrProvince: '',
     phone: '',
-    // operatingHours: {
-    //   dayOfWeekEnum: [],
-    //   intervals: {
-    //     close: '',
-    //     open: ''
-    //   }
-    // },
-    // specialHours: {
-    //   intervals: {
-    //     close: '',
-    //     open: ''
-    //   }
-    // }
   });
+
+  listingForm = this.formBuilder.group({
+    title: '',
+    description: '',
+    country: '',
+    postalCode: '',
+    price: '',
+    pictureUrl: '',
+    category: ''
+  });
+
+  optinForm = this.formBuilder.group({
+  });
+
   inventories = []
   ebaylogin! :boolean
 
@@ -293,21 +296,45 @@ export class SellingComponent implements OnInit, AfterViewInit {
     private ebayService: EbayService,) { }
 
   ngOnInit(): void {
-    // console.log(this.countryCodes)
+    this.Categories = this.ebayService.getCategories().CategoryArray
+    let authToken = this.ebayService.getAuthToken
+    if(authToken != null && authToken != ''){
+      console.log(authToken)
+      this.ebaylogin = true
+    }else{
+      alert("Please Link your Ebay Account!")
+      this.ebaylogin = false
+    }
   }
 
   ngAfterViewInit(): void {
     this.ebayService.getInventoryLocations().subscribe({
-      next: (res) => {
-        this.inventories = res.locations,
-        this.ebaylogin = true
-      },
-      error: (err) => {
-        alert(err.code + err.message + "Please make sure your Ebay login is not expired!"),
-        this.ebaylogin = false
-      },
+      next: (res) => this.inventories = res.locations,
+      error: (err) => alert("Error Fetching Inventory Locations: " +  err.message),
       complete: () => console.log('getInventoryLocations DONE')
     })
+  }
+
+
+  onSubmitListing(){
+    let item = {
+      Country: this.listingForm.value['country'],
+      Description: this.listingForm.value['description'],
+      PrimaryCategory: this.listingForm.value['category'],
+      StartPrice: this.listingForm.value['price'],
+      Title: this.listingForm.value['title'],
+      pictureUrl: this.listingForm.value['pictureUrl'],
+      postCode: this.listingForm.value['postalCode']
+    }
+    if(item.Country != '' && item.Description != '' && item.PrimaryCategory != '' && item.StartPrice != '' && item.Title != '' && item.pictureUrl != '' && item.postCode != ''){
+      this.ebayService.tradingAddItem(item);
+    }else{
+      alert('Please make sure you filled the form properly!')
+    }
+  }
+  
+  onSubmitOptin(){    
+    this.ebayService.optinProgram()
   }
 
   onSubmitInventory(){

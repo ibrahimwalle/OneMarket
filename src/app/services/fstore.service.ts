@@ -10,7 +10,8 @@ export class FstoreService {
 
   private dbPath = '/users'
   ref: AngularFirestoreCollection<any>;
-  constructor(private db: AngularFirestore) {
+  constructor(
+    private db: AngularFirestore) {
     this.ref = db.collection(this.dbPath);  
   }
 
@@ -50,5 +51,21 @@ export class FstoreService {
     return this.ref.doc(userData.uid).set(userData, {merge: true}).catch((error) => {
       console.log("Error Saving UserData:", error);
     });
+  }
+  
+  setEbayAuthCode(authCode: string) {
+    let user = localStorage.getItem('user')
+    if(user){
+      let id = JSON.parse(user).uid
+      const userData = {
+        uid: id,
+        ebayAuth: authCode
+      };
+      this.ref.doc(userData.uid).set(userData, {merge: true})
+        .then(() => console.log("Ebay AuthCode Set!"))
+        .catch((error) => {
+          alert("Error Setting Ebay AuthCode:" + error.message);
+        });
+    }
   }
 }

@@ -1,4 +1,14 @@
 export const environment = {
+  firebase: {
+    projectId: 'onemarket-2022',
+    appId: '1:834940583211:web:cac00f0b336a552d16d96e',
+    databaseURL: 'https://onemarket-2022-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'onemarket-2022.appspot.com',
+    locationId: 'europe-west',
+    apiKey: 'AIzaSyDcxjbW1KuuUOuq8kBsJh5dfBT5Mb6BKmU',
+    authDomain: 'onemarket-2022.firebaseapp.com',
+    messagingSenderId: '834940583211',
+  },
   production: true,
   firebaseConfig: {
     apiKey: "AIzaSyDcxjbW1KuuUOuq8kBsJh5dfBT5Mb6BKmU",

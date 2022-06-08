@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "onemarket-2022"
+  },
+  "targets": {
+    "onemarket-2022": {
+      "hosting": {
+        "OneMarket": [
+          "onemarket-2022"
+        ]
+      }
+    }
   }
 }

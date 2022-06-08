@@ -34,11 +34,11 @@
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.sass"
-              ],
-              "scripts": [
-                  "node_modules/popper.js/dist/umd/popper.min.js",
-                  "node_modules/bootstrap/dist/js/bootstrap.min.js"
-              ]
+            ],
+            "scripts": [
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -108,6 +108,16 @@
               "src/styles.sass"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "OneMarket:build:production",
+            "firebaseProject": "onemarket-2022",
+            "firebaseHostingSite": "onemarket-2022"
           }
         }
       }

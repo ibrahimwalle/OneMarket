@@ -20,8 +20,12 @@
             <div class="card-body">
                 <h4 class="card-title">{{item.title | titlecase}}</h4>
                 <p class="card-text">${{ item.price.value }}</p>
-                <a target="_blank" href={{item.url}} class="btn btn-success">Purchase</a>
-                <button *ngIf="this.isLoggedIn" (click)="saveItem(item)" class="btn btn-primary">Save</button>
+                <div class="d-flex">
+                    <a target="_blank" href={{item.url}} class="btn btn-success">Purchase</a>
+                    <button *ngIf="this.isLoggedIn" (click)="saveItem(item)" class="btn btn-primary">
+                        <img width="75%" src="../../assets/save.svg">
+                    </button>
+                </div>
             </div>
         </div>
     </div>

@@ -44,7 +44,7 @@ export class EbayService {
     url += "&GLOBAL-ID=EBAY-US";
     url += "&RESPONSE-DATA-FORMAT=JSON";
     url += "&REST-PAYLOAD";
-    url += "&paginationInput.entriesPerPage=3";
+    url += "&paginationInput.entriesPerPage=10";
 
     return this.http.get<any>(url,{
       params: {

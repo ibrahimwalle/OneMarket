@@ -7,7 +7,6 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HelpComponent } from './help/help.component';
-import { ListingDetailsComponent } from './listing-details/listing-details.component';
 import { EbayOauthComponent } from './ebay-oauth/ebay-oauth.component';
 import { SellingComponent } from './selling/selling.component';
 
@@ -20,7 +19,6 @@ const routes: Routes = [
   {path: "help", component: HelpComponent},
   {path: "ebayOauth", component: EbayOauthComponent},
   {path: "sell", component: SellingComponent},
-  {path: "listing/:id", component: ListingDetailsComponent}
 ];
 
 @NgModule({

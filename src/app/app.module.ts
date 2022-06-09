@@ -24,7 +24,6 @@ import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { HelpComponent } from './help/help.component';
-import { ListingDetailsComponent } from './listing-details/listing-details.component';
 import { EbayOauthComponent } from './ebay-oauth/ebay-oauth.component';
 import { SellingComponent } from './selling/selling.component';
 
@@ -38,9 +37,8 @@ import { SellingComponent } from './selling/selling.component';
     ProfileComponent,
     SignupComponent,
     HelpComponent,
-    ListingDetailsComponent,
     EbayOauthComponent,
-    SellingComponent,
+    SellingComponent
   ],
   imports: [
     BrowserModule,

@@ -21,8 +21,8 @@ export class EbayService {
   //   this.authToken$.next(token);
   // }
   get getAuthToken(): any{
-    // return localStorage.getItem('ebayAuth')
-    return `v^1.1#i^1#r^0#f^0#p^3#I^3#t^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`
+    return localStorage.getItem('ebayAuth')
+    // return 
   }
 
   public setAccessTokens(token: object){
@@ -328,6 +328,34 @@ export class EbayService {
     })
   }
 
-  //   getInventoryLocations (and other similar api funtions)
-  // createOrReplaceInventoryItem getInventoryItem getInventoryItems deleteInventoryItem	(maybe this)
+  uploadSiteHostedPictures(event:any){
+    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+    const file = event.target.files[0];
+    let url = 'https://api.ebay.com/ws/api.dll';
+    const myHeaders= {
+      'X-EBAY-API-SITEID':'0',
+      'X-EBAY-API-COMPATIBILITY-LEVEL':'967',
+      'X-EBAY-API-CALL-NAME':'UploadSiteHostedPictures',
+      'X-EBAY-API-IAF-TOKEN':this.getAuthToken,
+    }
+    let body =`
+      <?xml version="1.0" encoding="utf-8"?>
+      <UploadSiteHostedPicturesRequest xmlns="urn:ebay:apis:eBLBaseComponents">    
+        <ErrorLanguage>en_US</ErrorLanguage>
+        <WarningLevel>High</WarningLevel>
+        <PictureData>${file}</PictureData>
+        <PictureName>Developer Page Banner</PictureName>
+      </UploadSiteHostedPicturesRequest>
+    `
+    let imgUrl;
+    if(validImageTypes.includes(file['type'])){
+      this.http.post(url,body,{headers:myHeaders}).subscribe({
+        next:(res) => imgUrl = res,
+        error: (err)=> alert(err.message),
+        complete: ()=> console.log('Upload Done')
+      })
+    }else{
+      alert('Invalid File! Supported files(jpg,jpeg,png,gif)')}
+      return imgUrl
+    }
 }

@@ -355,4 +355,8 @@ export class SellingComponent implements OnInit, AfterViewInit {
     }
   }
 
+  uploadFile(event:any){
+    let imgUrl = this.ebayService.uploadSiteHostedPictures(event);
+    this.listingForm.value['pictureUrl'] = imgUrl;
+  }
 }

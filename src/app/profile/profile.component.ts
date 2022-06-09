@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
-// import { Listing } from '../interfaces/listing';
 import { AuthService } from '../services/auth.service';
 import { EbayService } from '../services/ebay.service';
 import { FstoreService } from '../services/fstore.service';
@@ -25,7 +24,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     photoURl: ''});
 
   displayName: string = "";
-  // email: string ;
+  progress: any;
+  picUrl: string|undefined;
   // emailVerified: boolean;
 
   savedItems: any[] = [];
@@ -45,10 +45,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {  
     this.fetchItems();
-  }
-
-  test(){
-    console.log(this.ebayService.getAuthToken);
+    this.displayName = this.authService.userData.displayName;
+    this.picUrl = this.authService.userData.photoURL;
   }
 
   fetchItems(){
@@ -83,6 +81,14 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   sendEmail(){
     this.authService.verificationEmail();
+  }
+
+  uploadPic(event:any){
+    this.authService.uploadProfilePic(event).subscribe({
+      next:(prog) => this.progress = prog?.toPrecision(4),
+      error: (err)=> alert(err.message),
+      complete: ()=> alert('Upload Complete!')
+    })
   }
 
   onSubmit(){

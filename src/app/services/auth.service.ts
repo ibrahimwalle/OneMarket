@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { BehaviorSubject } from 'rxjs';
@@ -16,7 +17,8 @@ export class AuthService {
 
   constructor(
     private fstoreService: FstoreService,
-    public auth: AngularFireAuth, 
+    public auth: AngularFireAuth,
+    private storage: AngularFireStorage, 
     private router: Router) {
       this.auth.authState.subscribe((user) => {
         if(user){
@@ -126,11 +128,27 @@ export class AuthService {
   async updateProfileDetails(email?: any ,password?: any, phoneNumber?: any, displayName?: any, photoURL?: any){
     let user = await this.auth.currentUser;
     if(user != null){
-      user.updateEmail(email).catch(err=>alert(err.message)),
-      user.updatePassword(password).catch(err=>alert(err.message)),
-      user.updatePhoneNumber(phoneNumber).catch(err=>alert(err.message)),
-      user.updateProfile({displayName,photoURL}).catch(err=>alert(err.message))
+      user.updateEmail(email).then(()=>console.log('Email updated!')).catch(err=>alert(err.message)),
+      user.updatePassword(password).then(()=>console.log('Password updated!')).catch(err=>alert(err.message)),
+      user.updatePhoneNumber(phoneNumber).then(()=>console.log('Phone number updated!')).catch(err=>alert(err.message)),
+      user.updateProfile({displayName,photoURL}).then(()=>console.log('Profile updated!')).catch(err=>alert(err.message))
     }
+  }
+
+  uploadProfilePic(event: any){
+    const file = event.target.files[0]; 
+    const filePath = `userProfilePics/${this.userData.uid}`;
+    const task = this.storage.upload(filePath, file);
+    let urlRef = this.storage.ref(`userProfilePics`).child(`${this.userData.uid}`).getDownloadURL();
+    urlRef.subscribe({
+      next:(url) => {
+        this.auth.currentUser.then(user => user?.updateProfile({photoURL:url})
+        .then(()=>console.log('Profile Picture updated!'))
+        .catch((err) => alert(err.message)))},
+      error: (err) => alert(err.message),
+      complete: ()=> console.log('Upload Complete!')
+    })
+    return task.percentageChanges()
   }
 
 }

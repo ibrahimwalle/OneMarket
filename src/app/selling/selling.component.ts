@@ -285,9 +285,6 @@ export class SellingComponent implements OnInit, AfterViewInit {
     category: ''
   });
 
-  optinForm = this.formBuilder.group({
-  });
-
   inventories = []
   ebaylogin! :boolean
 

@@ -31,6 +31,11 @@ export const environment = {
     'X-RapidAPI-Host': 'amazon24.p.rapidapi.com',
     'X-RapidAPI-Key': '10b7c99da9msh2986224a5664299p1c3824jsn55e312146d3d'
   },
+  emailApirConfig:{
+    'content-type': 'application/json',
+    'X-RapidAPI-Key': '10b7c99da9msh2986224a5664299p1c3824jsn55e312146d3d',
+    'X-RapidAPI-Host': 'rapidprod-sendgrid-v1.p.rapidapi.com'
+  },
   ebayConfig: {
     'clientID': 'IbrahimA-Shopping-PRD-629325b3d-dfdc3cca',
     'clientSecret': 'PRD-29325b3d5242-e7b0-4f1e-b85f-e473',

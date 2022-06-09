@@ -4,8 +4,9 @@
         <button class="btn btn-primary" type="submit">
             <img src="../../assets/search_black_24dp.svg">
         </button>
-        <select class="form-select-sm" name="catergory" id="">
+        <select (change)="setCat" class="form-select-sm" name="catergory" formControlName="category">
             <option selected>Catergory</option>
+            <option *ngFor="let category of categories" value={{category.id}}>{{category.name}}</option>
         </select>
     </form>
     <div class="input-group my-3 d-flex justify-content-center">

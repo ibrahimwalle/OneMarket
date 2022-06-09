@@ -14,9 +14,10 @@ import { FstoreService } from '../services/fstore.service';
 })
 export class HomeComponent implements OnInit {
 
-  checkoutForm = this.formBuilder.group({search: ''});
+  checkoutForm = this.formBuilder.group({search: '', category: ''});
   results: Listing[] | undefined;  
   isLoggedIn: boolean;
+  categories : any;
 
   constructor(
     private fstoreService: FstoreService,
@@ -26,8 +27,15 @@ export class HomeComponent implements OnInit {
       this.isLoggedIn = this.authService.isLoggedIn;
     }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.categories = this.searchService.getCatergories()
+    console.log(this.categories);
+    
+  }
 
+  setCat(){
+    this.searchService.setCategory(this.checkoutForm.value['category'])
+  }
   
   saveItem(item: any){
     this.fstoreService.saveItem(item,this.authService.userData.uid);

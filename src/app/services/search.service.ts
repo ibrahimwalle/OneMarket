@@ -12,6 +12,8 @@ import { EbayService } from './ebay.service';
 export class SearchService {
   page:number = 1;
   query:string = '';
+  category: string ='';
+  // categories:any;
   listings : Listing[] =[]
   // public item!: Listing;
 
@@ -39,22 +41,22 @@ export class SearchService {
           this.listings.push(item)})},
       (error) => console.log(error),  
     );
-    // await lastValueFrom(this.amazonApi.getProducts(this.query, this.page)).then(
-    //   (results) => {
-    //     amazonListings = results.docs;
-    //     amazonListings.forEach( element => {
-    //       let item : Listing = {id: '', title: '', url:'', imgUrl:'', price: {value: '', currency: ''}, category: [], marketPlace: 'amazon'};
-    //       item.id = element.product_id,
-    //       item.title = element.product_title,
-    //       item.url = element.product_detail_url,
-    //       item.imgUrl = element.product_main_image_url,
-    //       item.price.value = element.app_sale_price,
-    //       item.price.currency = element.app_sale_price_currency,
-    //       // item.category = ;
-    //       // console.log(item);
-    //       this.listings.push(item)})},
-    //   (error) => console.log(error),  
-    // )
+    await lastValueFrom(this.amazonApi.getProducts(this.query, this.page, this.category)).then(
+      (results) => {
+        amazonListings = results.docs;
+        amazonListings.forEach( element => {
+          let item : Listing = {id: '', title: '', url:'', imgUrl:'', price: {value: '', currency: ''}, category: [], marketPlace: 'amazon'};
+          item.id = element.product_id,
+          item.title = element.product_title,
+          item.url = element.product_detail_url,
+          item.imgUrl = element.product_main_image_url,
+          item.price.value = element.app_sale_price,
+          item.price.currency = element.app_sale_price_currency,
+          // item.category = ;
+          // console.log(item);
+          this.listings.push(item)})},
+      (error) => console.log(error),  
+    )
     await lastValueFrom(this.aliApi.getProducts(this.query, this.page)).then(
       (results) => {
         aliListings = results.docs;
@@ -85,14 +87,11 @@ export class SearchService {
   setQuery(searchQuery:string): string{
     return this.query = searchQuery;
   }
+  setCategory(category:string): string{
+    return this.category = category;
+  }
 
-  // setItem(item:Listing): any{
-  //   this.item = item;
-  //   console.log(this.item);
-  // }
-
-  // get getItem(): Listing{
-  //   return this.item;
-  // }
- 
+  getCatergories(){
+    return this.amazonApi.getCategories()
+  }
 }

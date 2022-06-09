@@ -34,11 +34,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     private ebayService: EbayService,
     private fstoreService: FstoreService,
     public authService: AuthService,
-    private formBuilder: FormBuilder) { 
-      // this.displayName = this.authService.userData.displayName,
-      // this.email = this.authService.userData.email,
-      // this.emailVerified = this.authService.userData.emailVerified
-    }
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
   }
@@ -55,7 +51,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         coll.forEach((doc: { data: () => any; }) => {
           this.savedItems.push(doc.data())
         });
-        // console.log("Collection data:", coll.docs);
       } else {
         console.log("No saved items!");
       }

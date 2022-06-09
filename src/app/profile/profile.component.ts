@@ -79,11 +79,18 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   uploadPic(event:any){
-    this.authService.uploadProfilePic(event).subscribe({
-      next:(prog) => this.progress = prog?.toPrecision(4),
-      error: (err)=> alert(err.message),
-      complete: ()=> console.log('Upload Done')
-    })
+    
+    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+    const file = event.target.files[0];
+    if(validImageTypes.includes(file['type'])){
+      this.authService.uploadProfilePic(event).subscribe({
+        next:(prog) => this.progress = prog?.toPrecision(4),
+        error: (err)=> alert(err.message),
+        complete: ()=> console.log('Upload Done')
+      })
+    }else{
+      alert('Invalid File! Supported files(jpg,jpeg,png,gif)')
+    }
   }
 
   onSubmit(){

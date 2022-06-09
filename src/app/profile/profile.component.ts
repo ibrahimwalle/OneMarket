@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.authService.uploadProfilePic(event).subscribe({
       next:(prog) => this.progress = prog?.toPrecision(4),
       error: (err)=> alert(err.message),
-      complete: ()=> alert('Upload Complete!')
+      complete: ()=> console.log('Upload Done')
     })
   }
 

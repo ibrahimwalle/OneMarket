@@ -136,18 +136,24 @@ export class AuthService {
   }
 
   uploadProfilePic(event: any){
-    const file = event.target.files[0]; 
+    
+    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+    const file = event.target.files[0];
     const filePath = `userProfilePics/${this.userData.uid}`;
-    const task = this.storage.upload(filePath, file);
-    let urlRef = this.storage.ref(`userProfilePics`).child(`${this.userData.uid}`).getDownloadURL();
-    urlRef.subscribe({
-      next:(url) => {
-        this.auth.currentUser.then(user => user?.updateProfile({photoURL:url})
-        .then(()=>console.log('Profile Picture updated!'))
-        .catch((err) => alert(err.message)))},
-      error: (err) => alert(err.message),
-      complete: ()=> console.log('Upload Complete!')
-    })
+    const task = this.storage.upload(filePath, file); 
+    if(validImageTypes.includes(file['type'])){
+      let urlRef = this.storage.ref(`userProfilePics`).child(`${this.userData.uid}`).getDownloadURL();
+      urlRef.subscribe({
+        next:(url) => {
+          this.auth.currentUser.then(user => user?.updateProfile({photoURL:url})
+          .then(()=>alert('Profile Picture updated!'))
+          .catch((err) => alert(err.message)))},
+        error: (err) => alert(err.message),
+        complete: ()=> console.log('Upload Complete!')
+      })
+    }else{
+      alert('Invalid File! Supported files(jpg,jpeg,png,gif)')
+    }
     return task.percentageChanges()
   }
 
